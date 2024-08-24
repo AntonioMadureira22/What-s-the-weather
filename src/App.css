@@ -1,39 +1,243 @@
-body {
-  font-family: Arial, sans-serif;
-  background: linear-gradient(to right, #6dd5ed, #2193b0);
-  color: #fff;
-  text-align: center;
-  padding: 50px;
+/* Reset default margin and padding */
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(to right, #3a6073, #16222a);
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  text-align: center;
 }
 
 .app {
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 20px;
-  border-radius: 10px;
-  max-width: 400px;
-  margin: 0 auto;
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 30px;
+  border-radius: 15px;
+  max-width: 800px;
+  width: 100%;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  margin: 20px;
+  overflow: hidden;
+}
+
+/* External Glowing Border Animation */
+.app::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 15px;
+  border: 5px solid transparent;
+  background: linear-gradient(90deg, #ff00cc, #3333ff, #00ffcc, #ff00cc);
+  background-size: 400%;
+  z-index: -1;
+  animation: glowBorder 8s linear infinite;
+}
+
+@keyframes glowBorder {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 h1 {
-  font-size: 2.5em;
-  margin-bottom: 20px;
+  font-size: 2.2em;
+  margin-bottom: 30px;
+  color: #ffffff;
+  letter-spacing: 2px;
+  position: relative;
+  z-index: 1;
 }
 
 .search input {
-  padding: 10px;
-  border-radius: 5px;
+  padding: 12px;
+  border-radius: 8px;
   border: none;
-  width: 80%;
-  margin-bottom: 20px;
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 30px;
+  font-size: 1em;
+  color: #333;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  outline: none;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
 }
 
-.weather-info h2 {
-  font-size: 2em;
-  margin-bottom: 10px;
+.search input:focus {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-.weather-info p {
-  font-size: 1.2em;
-  margin: 5px 0;
+.forecast-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.forecast-day {
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 20px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 700px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.forecast-day:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.forecast-day h2 {
+  font-size: 1.4em;
+  color: #ffffff;
+  flex: 1;
+  text-align: left;
+  letter-spacing: 1px;
+}
+
+.forecast-day p {
+  font-size: 1em;
+  margin: 0 10px;
+  flex: 1;
+  text-align: center;
+  color: #ffffff;
+}
+
+.forecast-day p:first-of-type {
+  flex: 2;
+  font-weight: bold;
+}
+
+/* Other existing styles */
+
+.app.animation-on::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 15px;
+  border: 5px solid transparent;
+  background: linear-gradient(90deg, #ff00cc, #3333ff, #00ffcc, #ff00cc);
+  background-size: 400%;
+  z-index: -1;
+  animation: glowBorder 8s linear infinite;
+}
+
+.app.animation-off::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 15px;
+  border: 5px solid transparent;
+  background: none;
+  z-index: -1;
+}
+
+.toggle-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1em;
+  background-color: #3333ff;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-button:hover {
+  background-color: #ff00cc;
+}
+
+/* Other existing media queries and styles */
+
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2em;
+  }
+
+  .search input {
+    padding: 10px;
+    font-size: 0.9em;
+  }
+
+  .forecast-day {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+  }
+
+  .forecast-day h2, .forecast-day p {
+    text-align: left;
+    margin-bottom: 10px;
+  }
+
+  .forecast-day p {
+    font-size: 0.9em;
+    margin: 5px 0;
+  }
+
+  .forecast-day p:first-of-type {
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 480px) {
+  .app {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 1.8em;
+  }
+
+  .search input {
+    padding: 8px;
+    font-size: 0.85em;
+  }
+
+  .forecast-day {
+    padding: 10px;
+    width: 100%;
+  }
+
+  .forecast-day h2 {
+    font-size: 1.2em;
+  }
+
+  .forecast-day p {
+    font-size: 0.85em;
+  }
 }
